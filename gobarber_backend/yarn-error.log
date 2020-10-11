@@ -1,8 +1,8 @@
 Arguments: 
-  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js add reflect-metada
+  C:\Program Files\nodejs\node.exe C:\Program Files (x86)\Yarn\bin\yarn.js typeorm migration:create -n CreateUsers
 
 PATH: 
-  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_231\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PostgreSQL\9.6\bin;C:\Program Files\MongoDB\Server\4.2\bin;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Supervisor\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\Supervisor\AppData\Local\Programs\Python\Python38\;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Users\Supervisor\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Supervisor\AppData\Local\Yarn\bin;C:\Users\Supervisor\.dotnet\tools;C:\Program Files\heroku\bin;c:\php;C:\selenium-webdriver;C:\Users\Supervisor\AppData\Local\Microsoft\WindowsApps;C:\Users\Supervisor\AppData\Roaming\npm;C:\php;C:\Users\Supervisor\AppData\Local\Yarn\bin;C:\Android\sdk\emulator;C:\Android\sdk\tools;C:\Android\sdk\tools\bin;C:\Android\sdk\platform-tools;
+  C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Yarn\bin\;C:\Program Files\Git\cmd;C:\Program Files\dotnet\;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\ProgramData\chocolatey\bin;C:\Program Files\Java\jdk1.8.0_231\bin;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\PostgreSQL\9.6\bin;C:\Program Files\MongoDB\Server\4.2\bin;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\ProgramData\DockerDesktop\version-bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\Supervisor\AppData\Local\Programs\Python\Python38\Scripts\;C:\Users\Supervisor\AppData\Local\Programs\Python\Python38\;C:\Program Files\Common Files\Microsoft Shared\Windows Live;C:\Users\Supervisor\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\Supervisor\AppData\Local\Yarn\bin;C:\Users\Supervisor\.dotnet\tools;C:\Program Files\heroku\bin;c:\php;C:\selenium-webdriver;C:\Users\Supervisor\AppData\Local\Microsoft\WindowsApps;C:\Users\Supervisor\AppData\Roaming\npm;C:\php;C:\Users\Supervisor\AppData\Local\Yarn\bin;C:\Android\sdk\emulator;C:\Android\sdk\tools;C:\Android\sdk\tools\bin;C:\Android\sdk\platform-tools;C:\Program Files\PostgreSQL\12\bin\;
 
 Yarn version: 
   1.17.3
@@ -14,17 +14,12 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/reflect-metada: Not found
-      at Request.params.callback [as _callback] (C:\Program Files (x86)\Yarn\lib\cli.js:65939:18)
-      at Request.self.callback (C:\Program Files (x86)\Yarn\lib\cli.js:140464:22)
-      at Request.emit (events.js:311:20)
-      at Request.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141436:10)
-      at Request.emit (events.js:311:20)
-      at IncomingMessage.<anonymous> (C:\Program Files (x86)\Yarn\lib\cli.js:141358:12)
-      at Object.onceWrapper (events.js:417:28)
-      at IncomingMessage.emit (events.js:323:22)
-      at endReadableNT (_stream_readable.js:1204:12)
-      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+  SyntaxError: C:\Users\Supervisor\Projetos Pessoais\GoStack\Modulo3\gobarber_backend\package.json: Unexpected end of JSON input
+      at JSON.parse (<anonymous>)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:1625:59
+      at Generator.next (<anonymous>)
+      at step (C:\Program Files (x86)\Yarn\lib\cli.js:304:30)
+      at C:\Program Files (x86)\Yarn\lib\cli.js:315:13
 
 npm manifest: 
   {
@@ -40,13 +35,14 @@ npm manifest:
     },
     "dependencies": {
       "@types/express": "^4.17.7",
-      "@typescript-eslint/eslint-plugin": "^4.0.1",
+      "@typescript-eslint/eslint-plugin": "^4.3.0",
       "@typescript-eslint/parser": "^4.0.1",
       "date-fns": "^2.16.1",
       "eslint-config-airbnb-base": "^14.2.0",
       "eslint-plugin-import": "2.21.2",
       "express": "^4.17.1",
       "pg": "^8.3.3",
+      "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.26",
       "uuid": "^8.3.0",
       "uuidv4": "^6.2.3"
@@ -60,7 +56,6 @@ npm manifest:
       "ts-node-dev": "^1.0.0-pre.61",
       "typescript": "^4.0.2"
     }
-  }
 
 yarn manifest: 
   No manifest
@@ -204,28 +199,28 @@ Lockfile:
     resolved "https://registry.yarnpkg.com/@types/uuid/-/uuid-8.3.0.tgz#215c231dff736d5ba92410e6d602050cce7e273f"
     integrity sha512-eQ9qFW/fhfGJF8WKHGEHZEyVWfZxrT+6CLIJGBcZPfxUh/+BnEj+UCGYMlr9qZuX/2AltsvwrGqp0LhEW8D0zQ==
   
-  "@typescript-eslint/eslint-plugin@^4.0.1":
-    version "4.0.1"
-    resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.0.1.tgz#88bde9239e29d688315718552cf80a3490491017"
-    integrity sha512-pQZtXupCn11O4AwpYVUX4PDFfmIJl90ZgrEBg0CEcqlwvPiG0uY81fimr1oMFblZnpKAq6prrT9a59pj1x58rw==
+  "@typescript-eslint/eslint-plugin@^4.3.0":
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/@typescript-eslint/eslint-plugin/-/eslint-plugin-4.3.0.tgz#1a23d904bf8ea248d09dc3761af530d90f39c8fa"
+    integrity sha512-RqEcaHuEKnn3oPFislZ6TNzsBLqpZjN93G69SS+laav/I8w/iGMuMq97P0D2/2/kW4SCebHggqhbcCfbDaaX+g==
     dependencies:
-      "@typescript-eslint/experimental-utils" "4.0.1"
-      "@typescript-eslint/scope-manager" "4.0.1"
+      "@typescript-eslint/experimental-utils" "4.3.0"
+      "@typescript-eslint/scope-manager" "4.3.0"
       debug "^4.1.1"
       functional-red-black-tree "^1.0.1"
       regexpp "^3.0.0"
       semver "^7.3.2"
       tsutils "^3.17.1"
   
-  "@typescript-eslint/experimental-utils@4.0.1":
-    version "4.0.1"
-    resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-4.0.1.tgz#7d9a3ab6821ad5274dad2186c1aa0d93afd696eb"
-    integrity sha512-gAqOjLiHoED79iYTt3F4uSHrYmg/GPz/zGezdB0jAdr6S6gwNiR/j7cTZ8nREKVzMVKLd9G3xbg1sV9GClW3sw==
+  "@typescript-eslint/experimental-utils@4.3.0":
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/@typescript-eslint/experimental-utils/-/experimental-utils-4.3.0.tgz#3f3c6c508e01b8050d51b016e7f7da0e3aefcb87"
+    integrity sha512-cmmIK8shn3mxmhpKfzMMywqiEheyfXLV/+yPDnOTvQX/ztngx7Lg/OD26J8gTZfkLKUmaEBxO2jYP3keV7h2OQ==
     dependencies:
       "@types/json-schema" "^7.0.3"
-      "@typescript-eslint/scope-manager" "4.0.1"
-      "@typescript-eslint/types" "4.0.1"
-      "@typescript-eslint/typescript-estree" "4.0.1"
+      "@typescript-eslint/scope-manager" "4.3.0"
+      "@typescript-eslint/types" "4.3.0"
+      "@typescript-eslint/typescript-estree" "4.3.0"
       eslint-scope "^5.0.0"
       eslint-utils "^2.0.0"
   
@@ -247,10 +242,23 @@ Lockfile:
       "@typescript-eslint/types" "4.0.1"
       "@typescript-eslint/visitor-keys" "4.0.1"
   
+  "@typescript-eslint/scope-manager@4.3.0":
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/@typescript-eslint/scope-manager/-/scope-manager-4.3.0.tgz#c743227e087545968080d2362cfb1273842cb6a7"
+    integrity sha512-cTeyP5SCNE8QBRfc+Lgh4Xpzje46kNUhXYfc3pQWmJif92sjrFuHT9hH4rtOkDTo/si9Klw53yIr+djqGZS1ig==
+    dependencies:
+      "@typescript-eslint/types" "4.3.0"
+      "@typescript-eslint/visitor-keys" "4.3.0"
+  
   "@typescript-eslint/types@4.0.1":
     version "4.0.1"
     resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.0.1.tgz#1cf72582f764931f085cb8230ff215980fe467b2"
     integrity sha512-S+gD3fgbkZYW2rnbjugNMqibm9HpEjqZBZkTiI3PwbbNGWmAcxolWIUwZ0SKeG4Dy2ktpKKaI/6+HGYVH8Qrlg==
+  
+  "@typescript-eslint/types@4.3.0":
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/@typescript-eslint/types/-/types-4.3.0.tgz#1f0b2d5e140543e2614f06d48fb3ae95193c6ddf"
+    integrity sha512-Cx9TpRvlRjOppGsU6Y6KcJnUDOelja2NNCX6AZwtVHRzaJkdytJWMuYiqi8mS35MRNA3cJSwDzXePfmhU6TANw==
   
   "@typescript-eslint/typescript-estree@4.0.1":
     version "4.0.1"
@@ -266,12 +274,34 @@ Lockfile:
       semver "^7.3.2"
       tsutils "^3.17.1"
   
+  "@typescript-eslint/typescript-estree@4.3.0":
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/@typescript-eslint/typescript-estree/-/typescript-estree-4.3.0.tgz#0edc1068e6b2e4c7fdc54d61e329fce76241cee8"
+    integrity sha512-ZAI7xjkl+oFdLV/COEz2tAbQbR3XfgqHEGy0rlUXzfGQic6EBCR4s2+WS3cmTPG69aaZckEucBoTxW9PhzHxxw==
+    dependencies:
+      "@typescript-eslint/types" "4.3.0"
+      "@typescript-eslint/visitor-keys" "4.3.0"
+      debug "^4.1.1"
+      globby "^11.0.1"
+      is-glob "^4.0.1"
+      lodash "^4.17.15"
+      semver "^7.3.2"
+      tsutils "^3.17.1"
+  
   "@typescript-eslint/visitor-keys@4.0.1":
     version "4.0.1"
     resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-4.0.1.tgz#d4e8de62775f2a6db71c7e8539633680039fdd6c"
     integrity sha512-yBSqd6FjnTzbg5RUy9J+9kJEyQjTI34JdGMJz+9ttlJzLCnGkBikxw+N5n2VDcc3CesbIEJ0MnZc5uRYnrEnCw==
     dependencies:
       "@typescript-eslint/types" "4.0.1"
+      eslint-visitor-keys "^2.0.0"
+  
+  "@typescript-eslint/visitor-keys@4.3.0":
+    version "4.3.0"
+    resolved "https://registry.yarnpkg.com/@typescript-eslint/visitor-keys/-/visitor-keys-4.3.0.tgz#0e5ab0a09552903edeae205982e8521e17635ae0"
+    integrity sha512-xZxkuR7XLM6RhvLkgv9yYlTcBHnTULzfnw4i6+z2TGBLy9yljAypQaZl9c3zFvy7PNI7fYWyvKYtohyF8au3cw==
+    dependencies:
+      "@typescript-eslint/types" "4.3.0"
       eslint-visitor-keys "^2.0.0"
   
   accepts@~1.3.7:
