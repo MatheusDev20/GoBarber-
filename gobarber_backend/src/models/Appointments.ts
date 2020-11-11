@@ -6,7 +6,7 @@ import {
     UpdateDateColumn,
     ManyToOne,
     JoinColumn,
-} from 'typeorm';
+} from 'typeorm'
 import User from './Users';
 
 @Entity('appointments')
