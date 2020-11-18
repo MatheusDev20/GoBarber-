@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 import { shade } from 'polished';
 import SignUpBackgroundImage from '../../assets/sign-up-image.png';
 
@@ -11,10 +11,29 @@ export const Content = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  place-content: center;
   width: 100%;
   max-width: 700px;
+`;
 
+const appearFromRight = keyframes`
+  from {
+    opacity: 0;
+    transform: translateX(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+`;
+export const AnimationContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  animation: ${appearFromRight} 1s;
+  img {
+    margin-top: 15px;
+  }
   form {
     margin: 50px 0;
     width: 340px;
@@ -22,10 +41,21 @@ export const Content = styled.div`
     h1 {
       margin-bottom: 24px;
     }
+    a {
+      color: #f4edeb;
+      display: block;
+      margin-top: 24px;
+      text-decoration: none;
+      transition: color 0.2s;
+
+      &:hover {
+        color: ${shade(0.2, '#f4edeb')};
+      }
+    }
   }
   > a {
     // Estiliza direto dentro do content e não os outros links
-    color: #f4ede8;
+    color: #ff9000;
     display: block;
     margin-top: 24px;
     text-decoration: none;
@@ -36,7 +66,7 @@ export const Content = styled.div`
       margin-right: 10px;
     }
     &:hover {
-      color: ${shade(0.2, '#f4ede8')};
+      color: ${shade(0.2, '#ff9000')};
     }
   }
 `;
