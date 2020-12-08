@@ -1,11 +1,11 @@
 import express, { Request, Response, NextFunction } from 'express';
 import cors from 'cors';
 import 'express-async-errors';
-import routes from './routes/index';
-import './database/index';
+import uploadConfig from '@config/upload';
+import '@shared/infra/typeorm/index';
 import 'reflect-metadata';
-import uploadConfig from './config/upload';
-import AppError from './errors/AppError';
+import AppError from '@shared/errors/AppError';
+import routes from './routes/index';
 
 const app = express();
 app.use(cors());
