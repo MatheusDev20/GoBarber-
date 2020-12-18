@@ -6,7 +6,7 @@ import 'reflect-metadata';
 import AppError from '@shared/errors/AppError';
 import routes from './routes/index';
 import '@shared/infra/typeorm/index';
-import '@shared/container';
+import '@shared/container/index';
 
 const app = express();
 app.use(cors());
@@ -20,6 +20,7 @@ app.use((err: Error, request: Request, response: Response, _: NextFunction) => {
             message: err.message,
         });
     }
+    console.log(err);
     return response.status(500).json({
         status: 'error',
         message: 'Internal Server Error',
