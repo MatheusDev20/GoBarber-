@@ -24,7 +24,6 @@ class UsersRepository implements IUsersRepository {
     }
 
     public async create(userData: ICreateUsersDTO): Promise<User> {
-        console.log('create hitted');
         const user = this.ormRepository.create(userData);
 
         await this.ormRepository.save(user);
