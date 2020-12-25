@@ -13,8 +13,7 @@ interface IRequest {
 class CreateUserService {
     constructor(
         @inject('UsersRepository') private usersRepository: IUsersRepository,
-        @inject('HashProvider')
-        private hasheProvider: IHashProvider,
+        @inject('HashProvider') private hasheProvider: IHashProvider,
     ) {}
 
     public async execute({ name, email, password }: IRequest): Promise<User> {
