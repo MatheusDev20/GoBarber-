@@ -14,7 +14,7 @@ class SendForgotPasswordEmailService {
         private usersRepository: IUsersRepository,
         @inject('MailProvider')
         private mailProvider: IMailProvider,
-        @inject('UserTokenRepository')
+        @inject('UsersTokenRepository')
         private userTokenRepository: IUsersTokenResporitory,
     ) {}
 
@@ -23,8 +23,22 @@ class SendForgotPasswordEmailService {
         if (!user) {
             throw new AppError('User does not exist');
         }
-        await this.userTokenRepository.generate(user.id);
-        this.mailProvider.sendMail(email, 'Pedido recebido');
+        console.log(user);
+        const { token } = await this.userTokenRepository.generate(user.id);
+        await this.mailProvider.sendMail({
+            to: {
+                name: user.name,
+                email: user.email,
+            },
+            subject: '[GoBarber] Recuperação de Senha',
+            templateData: {
+                template: 'Olá, {{name}}: {{token}}',
+                variables: {
+                    name: user.name,
+                    token,
+                },
+            },
+        });
     }
 }
 

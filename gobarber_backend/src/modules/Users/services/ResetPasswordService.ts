@@ -14,7 +14,7 @@ class ResetPasswordService {
     constructor(
         @inject('UsersRepository')
         private usersRepository: IUsersRepository,
-        @inject('UserTokenRepository')
+        @inject('UsersTokenRepository')
         private userTokenRepository: IUsersTokenResporitory,
         @inject('HashProvider')
         private hashProvider: IHashProvider,
@@ -37,7 +37,6 @@ class ResetPasswordService {
             throw new AppError('Token expired');
         }
         user.password = await this.hashProvider.generateHash(password);
-        console.log(user.password);
         await this.usersRepository.save(user);
     }
 }
