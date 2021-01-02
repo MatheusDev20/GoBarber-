@@ -1,6 +1,8 @@
-import { getRepository, Repository } from 'typeorm';
+import { getRepository, Raw, Repository } from 'typeorm';
 import IAppointmentsRepository from '@modules/Appointments/repositories/IAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/Appointments/dto/CreateAppointmentDto';
+import IFindAllInMonthDTO from '@modules/Appointments/dto/FindAllInMonthDTO';
+import IFindAllInDayDTO from '@modules/Appointments/dto/FindAllInDayDTO';
 import Appointment from '../entities/Appointments';
 
 class AppointmentsRepository implements IAppointmentsRepository {
@@ -15,6 +17,44 @@ class AppointmentsRepository implements IAppointmentsRepository {
             where: { date },
         });
         return findAppointment;
+    }
+
+    public async findAllInMonthFromProvider({
+        provider_id,
+        year,
+        month,
+    }: IFindAllInMonthDTO): Promise<Appointment[]> {
+        const parsedMonth = String(month).padStart(2, '0'); // Preenche o mês com um zero antes.
+        const appointments = await this.ormRepository.find({
+            where: {
+                provider_id,
+                date: Raw(
+                    dateFieldName =>
+                        `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}`,
+                ),
+            },
+        });
+        return appointments;
+    }
+
+    public async findAllInDayFromProvider({
+        provider_id,
+        year,
+        month,
+        day,
+    }: IFindAllInDayDTO): Promise<Appointment[]> {
+        const parsedDay = String(day).padStart(2, '0');
+        const parsedMonth = String(month).padStart(2, '0'); // Preenche o mês com um zero antes.
+        const appointments = await this.ormRepository.find({
+            where: {
+                provider_id,
+                date: Raw(
+                    dateFieldName =>
+                        `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}`,
+                ),
+            },
+        });
+        return appointments;
     }
 
     public async create({

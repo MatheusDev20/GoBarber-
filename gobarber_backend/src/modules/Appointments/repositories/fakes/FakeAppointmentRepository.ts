@@ -1,10 +1,14 @@
 import IAppointmentsRepository from '@modules/Appointments/repositories/IAppointmentsRepository';
 import ICreateAppointmentDTO from '@modules/Appointments/dto/CreateAppointmentDto';
 import { uuid } from 'uuidv4';
-import { isEqual } from 'date-fns';
+import { isEqual, getMonth, getYear, getDate } from 'date-fns';
+import IFindAllInMonthDTO from '@modules/Appointments/dto/FindAllInMonthDTO';
+import IFindAllInDayDTO from '@modules/Appointments/dto/FindAllInDayDTO';
 import Appointment from '../../infra/typeorm/entities/Appointments';
 
 class AppointmentsRepository implements IAppointmentsRepository {
+    private appointments: Appointment[] = [];
+
     public async findByDate(date: Date): Promise<Appointment | undefined> {
         const findAppointment = this.appointments.find(appointment =>
             isEqual(appointment.date, date),
@@ -12,7 +16,35 @@ class AppointmentsRepository implements IAppointmentsRepository {
         return findAppointment;
     }
 
-    private appointments: Appointment[] = [];
+    public async findAllInMonthFromProvider({
+        provider_id,
+        year,
+        month,
+    }: IFindAllInMonthDTO): Promise<Appointment[]> {
+        const appointments = this.appointments.filter(
+            appointment =>
+                appointment.provider_id === provider_id &&
+                getMonth(appointment.date) + 1 === month &&
+                getYear(appointment.date) === year,
+        );
+        return appointments;
+    }
+
+    public async findAllInDayFromProvider({
+        provider_id,
+        year,
+        month,
+        day,
+    }: IFindAllInDayDTO): Promise<Appointment[]> {
+        const appointments = this.appointments.filter(
+            appointment =>
+                appointment.provider_id === provider_id &&
+                getDate(appointment.date) === day &&
+                getMonth(appointment.date) + 1 === month &&
+                getYear(appointment.date) === year,
+        );
+        return appointments;
+    }
 
     public async create({
         provider_id,
