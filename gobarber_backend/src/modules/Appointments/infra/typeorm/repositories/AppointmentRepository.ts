@@ -24,13 +24,14 @@ class AppointmentsRepository implements IAppointmentsRepository {
         year,
         month,
     }: IFindAllInMonthDTO): Promise<Appointment[]> {
-        const parsedMonth = String(month).padStart(2, '0'); // Preenche o mês com um zero antes.
+        const parsedMonth = String(month).padStart(2, '0');
+        console.log(parsedMonth); // Preenche o mês com um zero antes.
         const appointments = await this.ormRepository.find({
             where: {
                 provider_id,
                 date: Raw(
                     dateFieldName =>
-                        `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}`,
+                        `to_char(${dateFieldName}, 'MM-YYYY') = '${parsedMonth}-${year}'`,
                 ),
             },
         });
@@ -50,7 +51,7 @@ class AppointmentsRepository implements IAppointmentsRepository {
                 provider_id,
                 date: Raw(
                     dateFieldName =>
-                        `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}`,
+                        `to_char(${dateFieldName}, 'DD-MM-YYYY') = '${parsedDay}-${parsedMonth}-${year}'`,
                 ),
             },
         });
@@ -60,8 +61,13 @@ class AppointmentsRepository implements IAppointmentsRepository {
     public async create({
         provider_id,
         date,
+        user_id,
     }: ICreateAppointmentDTO): Promise<Appointment> {
-        const appointment = this.ormRepository.create({ provider_id, date });
+        const appointment = this.ormRepository.create({
+            provider_id,
+            date,
+            user_id,
+        });
 
         await this.ormRepository.save(appointment);
 
