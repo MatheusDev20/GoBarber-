@@ -6,7 +6,7 @@ import {
     UpdateDateColumn,
 } from 'typeorm';
 
-// KISS Keep it simple and stupid
+import { Exclude, Expose } from 'class-transformer';
 
 @Entity('users')
 class Users {
@@ -19,6 +19,7 @@ class Users {
     @Column('')
     email: string;
 
+    @Exclude()
     @Column()
     password: string;
 
@@ -30,5 +31,13 @@ class Users {
 
     @UpdateDateColumn()
     updated_at: Date;
+
+    @Expose({ name: 'avatar_url' })
+    getAvatarUrl(): string | null {
+        if (!this.avatar) {
+            return null;
+        }
+        return `${process.env.APP_API_URL}/files/${this.avatar}`;
+    }
 }
 export default Users;
