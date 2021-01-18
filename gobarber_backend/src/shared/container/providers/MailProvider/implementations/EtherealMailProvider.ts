@@ -15,8 +15,8 @@ export default class EtherealMailProvider implements IMailProvider {
         nodemailer.createTestAccount().then(account => {
             const transporter = nodemailer.createTransport({
                 host: account.smtp.host,
-                port: 587,
-                secure: false,
+                port: account.smtp.port,
+                secure: account.smtp.secure,
                 auth: {
                     user: account.user,
                     pass: account.pass,

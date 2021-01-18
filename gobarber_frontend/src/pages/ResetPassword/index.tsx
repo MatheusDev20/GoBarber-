@@ -1,44 +1,51 @@
 import React, { useRef, useCallback } from 'react';
-import { FiLogIn, FiMail, FiLock } from 'react-icons/fi';
+import { FiLock } from 'react-icons/fi';
 import { Form } from '@unform/web';
 import { FormHandles } from '@unform/core';
 import * as Yup from 'yup';
-import { Link, useHistory } from 'react-router-dom';
+import { useHistory, useLocation } from 'react-router-dom';
 import { Container, Content, Background, AnimationContainer } from './styles';
 import logoImg from '../../assets/logo.svg';
 import Input from '../../components/Input/index';
 import Button from '../../components/Button/index';
 import getValidationErrors from '../../utils/getValidationErros';
-import { useAuth } from '../../hooks/Auth';
 import { useToast } from '../../hooks/Toast';
+import api from '../../services/apiClient';
 
-interface SignFormData {
-  email: string;
+interface ResetPasswordFormData {
   password: string;
+  password_confirmation: string;
 }
-const SignIn: React.FC = () => {
-  const formRef = useRef<FormHandles>(null);
+const ResetPassword: React.FC = () => {
   const history = useHistory();
-  const { signIn } = useAuth();
+  const location = useLocation();
+  const formRef = useRef<FormHandles>(null);
   const { addToast } = useToast();
   const handleSubmit = useCallback(
-    async (data: SignFormData) => {
+    async (data: ResetPasswordFormData) => {
       try {
         formRef.current?.setErrors({});
         const schema = Yup.object().shape({
-          email: Yup.string()
-            .required('Email Obrigatório')
-            .email('Digite um email Válido'),
           password: Yup.string().required('Senha obrigatória'),
+          password_confirmation: Yup.string().oneOf(
+            [Yup.ref('password')],
+            'Passwords must match',
+          ),
         });
         await schema.validate(data, {
           abortEarly: false,
         });
-        await signIn({
-          email: data.email,
-          password: data.password,
+        const { password, password_confirmation } = data;
+        const token = location.search.replace('?token=', '');
+        if (!token) {
+          throw new Error();
+        }
+        await api.post('/password/reset', {
+          password,
+          password_confirmation,
+          token,
         });
-        history.push('/dashboard');
+        history.push('/signin');
       } catch (err) {
         if (err instanceof Yup.ValidationError) {
           const errors = getValidationErrors(err);
@@ -48,13 +55,13 @@ const SignIn: React.FC = () => {
         }
         addToast({
           type: 'error',
-          title: 'Erro na autenticação',
+          title: 'Erro ao resetar senha',
           description:
-            'Ocorreu um erro na autenticação, cheque suas credenciais',
+            'Ocorreu um erro ao tentar resetar sua senha tente novamente',
         });
       }
     },
-    [signIn, addToast, history],
+    [addToast, history, location],
   );
   return (
     <Container>
@@ -62,8 +69,7 @@ const SignIn: React.FC = () => {
         <AnimationContainer>
           <img src={logoImg} alt="GoBarber" />
           <Form ref={formRef} onSubmit={handleSubmit}>
-            <h1>Faça seu logon</h1>
-            <Input icon={FiMail} name="email" placeholder="E-mail" />
+            <h1>Resetar senha</h1>
 
             <Input
               icon={FiLock}
@@ -71,16 +77,15 @@ const SignIn: React.FC = () => {
               type="password"
               placeholder="Senha"
             />
+            <Input
+              icon={FiLock}
+              name="password_confirmation"
+              type="password"
+              placeholder="Confirmação de senha"
+            />
 
-            <Button type="submit">Entrar</Button>
-
-            <Link to="forgot">Esqueci minha senha</Link>
+            <Button type="submit">Resetar</Button>
           </Form>
-
-          <Link to="/signup">
-            <FiLogIn />
-            Criar Conta
-          </Link>
         </AnimationContainer>
       </Content>
       <Background />
@@ -88,4 +93,4 @@ const SignIn: React.FC = () => {
   );
 };
 
-export default SignIn;
+export default ResetPassword;
