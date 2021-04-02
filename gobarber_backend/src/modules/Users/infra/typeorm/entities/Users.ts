@@ -7,6 +7,7 @@ import {
 } from 'typeorm';
 
 import { Exclude, Expose } from 'class-transformer';
+import storageConfig from '@config/storageConfig';
 
 @Entity('users')
 class Users {
@@ -37,7 +38,15 @@ class Users {
         if (!this.avatar) {
             return null;
         }
-        return `${process.env.APP_API_URL}/files/${this.avatar}`;
+        switch (storageConfig.driver) {
+            case 'diskStorage':
+                return `${process.env.APP_API_URL}/files/${this.avatar}`;
+            case 's3':
+                return `https://my-app-gobarberr.s3.amazonaws.com/${this.avatar}`;
+
+            default:
+                return null;
+        }
     }
 }
 export default Users;
